@@ -17,6 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gP2-12-lMU">
+                                <rect key="frame" x="-2" y="64" width="604" height="492"/>
+                                <color key="backgroundColor" red="0.32179456949234009" green="0.32178491353988647" blue="0.32179036736488342" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqI-uE-b8e">
+                                <rect key="frame" x="-2" y="76" width="604" height="59"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TY3-zK-QD4">
+                                <rect key="frame" x="0.0" y="485" width="604" height="59"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bwx-hc-xiM">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <constraints>
@@ -24,52 +38,45 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="F4m-5T-eC6"/>
-                                    <barButtonItem title="Pick" id="L4M-3k-vao">
-                                        <connections>
-                                            <action selector="pickImage:" destination="BYZ-38-t0r" id="9k4-eH-8kI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Item" width="78" systemItem="camera" id="OrF-nd-OQh">
+                                    <barButtonItem systemItem="camera" id="OrF-nd-OQh">
                                         <connections>
                                             <action selector="pickImage:" destination="BYZ-38-t0r" id="M1o-Cn-nbu"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="28" style="plain" systemItem="fixedSpace" id="yNh-0y-Igl"/>
+                                    <barButtonItem title="Album" id="L4M-3k-vao">
+                                        <connections>
+                                            <action selector="pickImage:" destination="BYZ-38-t0r" id="9k4-eH-8kI"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zfw-9W-hd6"/>
                                 </items>
+                                <variation key="heightClass=regular-widthClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="756" width="600" height="44"/>
+                                </variation>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gP2-12-lMU">
-                                <rect key="frame" x="-2" y="64" width="604" height="492"/>
-                                <color key="backgroundColor" red="0.1019607843" green="0.2156862745" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqI-uE-b8e">
-                                <rect key="frame" x="-2" y="76" width="604" height="60"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TY3-zK-QD4">
-                                <rect key="frame" x="0.0" y="484" width="604" height="60"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="50"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gP2-12-lMU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-18" id="1OQ-Pr-egZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Bwx-hc-xiM" secondAttribute="trailing" id="5po-3G-omO"/>
                             <constraint firstItem="gP2-12-lMU" firstAttribute="bottom" secondItem="Bwx-hc-xiM" secondAttribute="top" id="7eO-iZ-Qxr"/>
-                            <constraint firstItem="Bwx-hc-xiM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="8By-Wj-yva"/>
                             <constraint firstItem="aqI-uE-b8e" firstAttribute="centerX" secondItem="gP2-12-lMU" secondAttribute="centerX" id="A6M-pi-CtR"/>
                             <constraint firstItem="gP2-12-lMU" firstAttribute="centerX" secondItem="Bwx-hc-xiM" secondAttribute="centerX" id="BfK-aa-5eL"/>
                             <constraint firstItem="aqI-uE-b8e" firstAttribute="width" secondItem="gP2-12-lMU" secondAttribute="width" id="RX2-FC-3Jy"/>
+                            <constraint firstItem="Bwx-hc-xiM" firstAttribute="leading" secondItem="TY3-zK-QD4" secondAttribute="leading" id="Sa9-5p-UiG"/>
                             <constraint firstItem="aqI-uE-b8e" firstAttribute="top" secondItem="gP2-12-lMU" secondAttribute="top" constant="12" id="Vng-h7-f36"/>
                             <constraint firstItem="TY3-zK-QD4" firstAttribute="centerX" secondItem="gP2-12-lMU" secondAttribute="centerX" constant="2" id="fWh-7Y-yGA"/>
                             <constraint firstItem="TY3-zK-QD4" firstAttribute="bottom" secondItem="gP2-12-lMU" secondAttribute="bottom" constant="-12" id="l9z-uZ-SEv"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Bwx-hc-xiM" secondAttribute="trailing" constant="-16" id="lU3-DR-CKy"/>
                             <constraint firstItem="TY3-zK-QD4" firstAttribute="width" secondItem="gP2-12-lMU" secondAttribute="width" id="o0D-td-AQ9"/>
                             <constraint firstItem="gP2-12-lMU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pw7-0s-NIY"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bwx-hc-xiM" secondAttribute="bottom" id="rTn-ld-HDt"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5lk-Ca-XGy"/>
+                    <navigationItem key="navigationItem" id="5lk-Ca-XGy">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="X3g-ia-nrZ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="cancel" id="V1v-hk-Cee"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="albumButton" destination="L4M-3k-vao" id="KN5-ZN-pL9"/>
                         <outlet property="bottomLabel" destination="TY3-zK-QD4" id="9OA-yp-haz"/>
@@ -98,7 +105,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j6z-ZK-eW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="276" y="459"/>
+            <point key="canvasLocation" x="236" y="459"/>
         </scene>
     </scenes>
 </document>

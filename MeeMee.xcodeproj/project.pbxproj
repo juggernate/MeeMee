@@ -84,14 +84,14 @@
 			isa = PBXGroup;
 			children = (
 				D8DDCE891AB8A37900F67170 /* AppDelegate.swift */,
+				D8DDCEAD1AB8A87C00F67170 /* Meme.swift */,
 				D8DDCE8B1AB8A37900F67170 /* ViewController.swift */,
 				D8DDCEA91AB8A7EF00F67170 /* MemeEditorViewController.swift */,
 				D8DDCEAB1AB8A81E00F67170 /* SentMemesViewController.swift */,
 				D8DDCE8D1AB8A37900F67170 /* Main.storyboard */,
-				D8DDCE901AB8A37900F67170 /* Images.xcassets */,
 				D8DDCE921AB8A37900F67170 /* LaunchScreen.xib */,
+				D8DDCE901AB8A37900F67170 /* Images.xcassets */,
 				D8DDCE871AB8A37900F67170 /* Supporting Files */,
-				D8DDCEAD1AB8A87C00F67170 /* Meme.swift */,
 			);
 			path = MeeMee;
 			sourceTree = "<group>";
@@ -419,6 +419,7 @@
 				D8DDCEA51AB8A37900F67170 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8DDCEA61AB8A37900F67170 /* Build configuration list for PBXNativeTarget "MeeMeeTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +428,7 @@
 				D8DDCEA81AB8A37900F67170 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

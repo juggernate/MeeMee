@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 struct Meme {
-    let topLabel: UILabel?
-    let bottomLabel: UILabel?
+    let topLabel: UILabel
+    let bottomLabel: UILabel
     let image: UIImage
+    let memeImage : UIImage
 }
