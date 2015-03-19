@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 struct Meme {
+    
+    static let defaultTopText = "TOP"
+    static let defaultBottomText = "BOTTOM"
+    
     let topLabel: UILabel
     let bottomLabel: UILabel
     let image: UIImage

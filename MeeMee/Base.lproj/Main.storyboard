@@ -75,13 +75,19 @@
                     </view>
                     <navigationItem key="navigationItem" id="5lk-Ca-XGy">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="X3g-ia-nrZ"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="cancel" id="V1v-hk-Cee"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="cancel" id="V1v-hk-Cee">
+                            <connections>
+                                <action selector="cancelMemeEdits:" destination="BYZ-38-t0r" id="rHM-mA-Ghs"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="albumButton" destination="L4M-3k-vao" id="KN5-ZN-pL9"/>
                         <outlet property="bottomLabel" destination="TY3-zK-QD4" id="9OA-yp-haz"/>
                         <outlet property="camButton" destination="OrF-nd-OQh" id="Q1I-88-geQ"/>
+                        <outlet property="cancelButton" destination="V1v-hk-Cee" id="X56-hz-Jyy"/>
                         <outlet property="imageView" destination="gP2-12-lMU" id="hPk-Sf-XND"/>
+                        <outlet property="shareButton" destination="X3g-ia-nrZ" id="whV-KL-79Q"/>
                         <outlet property="topLabel" destination="aqI-uE-b8e" id="lX4-re-nPU"/>
                     </connections>
                 </viewController>

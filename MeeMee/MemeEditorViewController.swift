@@ -21,7 +21,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     
     var currentTextField: UITextField?
     
-    var didStartEditing = false
+    var didBeginEditing = false
     
     let memeTextAttributes = [
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
@@ -40,6 +40,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
             label.textAlignment = NSTextAlignment.Center
             label.autocapitalizationType = UITextAutocapitalizationType.AllCharacters
         }
+        
+        resetMemeEdits()
         
     }
     
@@ -139,21 +141,43 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         imageView.image = image
+        enableMemeEditors()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        imageView.image = nil
+        //imageView.image = nil // this will set existing to nil, probably not desired
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
-    func resetMemeEdits(){
-        //TODO: reset buttons to
+    func enableMemeEditors(){
+        topLabel.enabled = true
+        bottomLabel.enabled = true
+        
+        shareButton.enabled = true
+        cancelButton.enabled = true
     }
     
     
+    func resetMemeEdits(){
+        topLabel.text = Meme.defaultTopText
+        bottomLabel.text = Meme.defaultBottomText
+        //disable the labels until image is picked?
+//        topLabel.enabled = false
+//        bottomLabel.enabled = false
+        
+        shareButton.enabled = false
+        cancelButton.enabled = false
+        
+        imageView.image = nil
+    }
+    
+    
+    @IBAction func cancelMemeEdits(sender: AnyObject) {
+        resetMemeEdits()
+    }
 
 
 }
