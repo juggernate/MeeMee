@@ -18,6 +18,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     @IBOutlet weak var bottomLabel: UITextField!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var toolBar: UIToolbar!
     
     var currentTextField: UITextField?
     
@@ -73,14 +74,14 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     }
     
     func keyboardWillHide(notification: NSNotification){
-        println("Keyboard will HIDE with NOTIFICATION:\n\(notification)")
+//        println("Keyboard will HIDE with NOTIFICATION:\n\(notification)")
         if currentTextField == bottomLabel{
             self.view.frame.origin.y += getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillShow(notification: NSNotification){
-        println("Keyboard will SHOW with NOTIFICATION:\n\(notification)")
+//        println("Keyboard will SHOW with NOTIFICATION:\n\(notification)")
         if currentTextField == bottomLabel{
             self.view.frame.origin.y -= getKeyboardHeight(notification)
         }
@@ -152,6 +153,8 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     }
     
     
+    // MARK: Setup, reset
+    
     func enableMemeEditors(){
         topLabel.enabled = true
         bottomLabel.enabled = true
@@ -176,8 +179,90 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     
     
     @IBAction func cancelMemeEdits(sender: AnyObject) {
-        resetMemeEdits()
+//        resetMemeEdits()
+        dismissViewControllerAnimated(true, completion: nil)
+        
     }
+    
+    
+    // MARK: Share & Save
+    
+    func save(){
+        //flatten the meme image and text
+        let renderedMeme = renderMemeImage()
+        
+        //make the meme image, should this be a property for access in other methods?
+        let meme = Meme(topLabel: topLabel.text,
+            bottomLabel: bottomLabel.text,
+            image: imageView.image!,
+            memeImage: renderedMeme)
+        
+        // Add it to the memes array in the Application Delegate
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.memes.append(meme)
+        
+        // Do the sharing here for now with the flattened image
+        let controller = UIActivityViewController(activityItems: [renderedMeme], applicationActivities: nil)
+        self.presentViewController(controller, animated: true, completion: nil)
+        
+        println("\n\(appDelegate.memes.count) Memes Total:")
+        for m in appDelegate.memes{
+            println("\(m.topLabel): \(m.bottomLabel)")
+            println("Input Image Size: \(m.image.size)")
+            println("Flattened Size: \(m.memeImage.size) ")
+        }
+        println("")
+        
+    }
+    
+    func renderMemeImage() -> UIImage {
+        //TODO: HIDE TOOLBARS
+        toolBar.hidden = true
+        
+        
+        //need reference to toolbar?
+        if let navVC = self.navigationController?.navigationController{
+            println(" IN NAV VC DOOD")
+        }
+        
+        // Render view to an image
+        let contextView = view
+        let contextFrame = contextView.frame
+        let contextSize = contextFrame.size
+        //        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
+//        let choppy = view.frame.height - toolBar.frame.height - statusBarHeight
+//        let contextSize = CGSize(width: view.frame.size.width, height: choppy)        //just use the size of the image view ? subtract toolbar height?
+//        contextSize =
+
+        //use WithOptions to set scale multiplier to 0.0, keeps from going fuzzy
+        UIGraphicsBeginImageContextWithOptions(contextSize, true, CGFloat(0.0))
+        // TODO: move the context down, or move the view UP into the context frame
+//        UIGraphics
+//        self.view.frame.origin.y += statusBarHeight
+        
+        self.view.drawViewHierarchyInRect(contextFrame, afterScreenUpdates: true)
+        
+        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+//        self.view.frame.origin.y -= statusBarHeight
+        
+        //TODO: SHOW TOOLBARS
+        toolBar.hidden = false
+        
+        return memedImage
+        
+    }
+    
+    
+    @IBAction func saveMemeAndShare(sender: AnyObject) {
+        save()
+        
+        //TODO: Activity Share sheet with content (memedImage)
+        
+        // return to tabView? or just change "Cancel" button to "Done" to manually dismiss?
+    }
+    
 
 
 }
