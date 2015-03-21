@@ -31,7 +31,6 @@ class MemesTableViewController: UITableViewController, UITableViewDataSource {
 
         }
     }
-    
 
     // MARK: - Table view data source
 
@@ -50,6 +49,18 @@ class MemesTableViewController: UITableViewController, UITableViewDataSource {
         return cell
     }
 
-
-
+    @IBAction func addMeme() {
+        showMemeEditor(nil)
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        showMemeEditor(memes[indexPath.row])
+    }
+    
+    func showMemeEditor(meme:Meme?) {
+        var storyboard = UIStoryboard (name: "Main", bundle: nil)
+        var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
+        resultVC.meme = meme
+        self.presentViewController(resultVC, animated: true, completion: nil)
+    }
 }

@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 struct Meme {
-    
-    // should images be optional so they start nil, or does editor just have an empty
+    // should images be optional so they start nil? 
+    // or a meme can't be a meme until all of the parts are there, the editor is just temp elements until it saves
     let topLabel: String
     let bottomLabel: String
     let image: UIImage
@@ -21,7 +21,7 @@ struct Meme {
 extension Meme {
     
     //should have a default image included?
-    static let defaultTopText = "TOP"
-    static let defaultBottomText = "BOTTOM"
+    static let defaultTopText = "MEMES BE LIKE"
+    static let defaultBottomText = "MEEMEEMEE"
     
 }
