@@ -10,15 +10,19 @@ import UIKit
 
 let reuseIdentifier = "MemeCollectionCell"
 
-class MemesCollectionViewController: UIViewController, UICollectionViewDataSource {
+class MemesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var memes: [Meme]!
     
+    @IBOutlet weak var memeCollectionView: UICollectionView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         self.memes = appDelegate.memes
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,15 +32,20 @@ class MemesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         self.memes = appDelegate.memes
+        
+        memeCollectionView.reloadData()
     }
-
+    
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // this happens BEFORE view will appear, so memes will be nil if you don't get it from AD before this
+        println("IMMA SAY MEMES COUNT: \(memes.count)")
         return memes.count
-        
     }
+
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         println("Gettin cellForItemBlahBlah")
@@ -57,9 +66,11 @@ class MemesCollectionViewController: UIViewController, UICollectionViewDataSourc
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         showMemeEditor(memes[indexPath.row])
+//        Meme.presentMemeEditor(memes[indexPath.row], fromViewController: self)
     }
     
     func showMemeEditor(meme:Meme?) {
+        
         var storyboard = UIStoryboard (name: "Main", bundle: nil)
         var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
         resultVC.meme = meme

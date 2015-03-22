@@ -45,10 +45,10 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
             label.autocapitalizationType = UITextAutocapitalizationType.AllCharacters
         }
         
-        if let meme = meme {
-            imageView.image = meme.image
-            topLabel.text = meme.topLabel
-            bottomLabel.text = meme.bottomLabel
+        if let cmeme = meme {
+            imageView.image = cmeme.image
+            topLabel.text = cmeme.topLabel
+            bottomLabel.text = cmeme.bottomLabel
         }
         else {
             resetMemeEdits()
@@ -175,7 +175,7 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
         bottomLabel.text = Meme.defaultBottomText
 
         shareButton.enabled = false
-        cancelButton.enabled = false
+//        cancelButton.enabled = false
 
         imageView.image = nil
     }

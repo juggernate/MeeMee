@@ -12,6 +12,7 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
 
     // will get this from the AppDelegate every time view will appear
     var memes: [Meme]!
+    var firstLoad = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +31,16 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
         // There should be a better way to handle this, I'm not sure this is the best default,
         // perhaps there should be an "Add Meme" on the tab bar, that starts a new Meme
         
-//        if memes.count == 0 {
-//            showMemeEditor(nil)
-//        }
+        if firstLoad && memes.count == 0 {
+            firstLoad = false
+            Meme.presentMemeEditor(nil, fromViewController: self)
+        }
     }
 
     // MARK: - Table view data source
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        println("TABLE VIEW ZEZ Number of Rows: \(memes.count)")
         return memes.count
     }
     
@@ -45,23 +48,24 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as UITableViewCell
         let meme = memes[indexPath.row]
+        
+        cell.imageView?.image = meme.image
+        cell.textLabel?.text = meme.topLabel
+        cell.detailTextLabel?.text = meme.bottomLabel
 
         return cell
     }
     
-
-    @IBAction func addMeme() {
-        showMemeEditor(nil)
-    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        showMemeEditor(memes[indexPath.row])
+//        showMemeEditor(memes[indexPath.row])
+        Meme.presentMemeEditor(memes[indexPath.row], fromViewController: self)
     }
     
-    func showMemeEditor(meme:Meme?) {
-        var storyboard = UIStoryboard (name: "Main", bundle: nil)
-        var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
-        resultVC.meme = meme
-        self.presentViewController(resultVC, animated: true, completion: nil)
-    }
+//    func showMemeEditor(meme:Meme?) {
+//        var storyboard = UIStoryboard (name: "Main", bundle: nil)
+//        var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
+//        resultVC.meme = meme
+//        self.presentViewController(resultVC, animated: true, completion: nil)
+//    }
 }

@@ -16,6 +16,14 @@ struct Meme {
     let bottomLabel: String
     let image: UIImage
     let memeImage : UIImage
+    
+    // Not sure if this is the best place? maybe this should just be in the memeEditorController?
+    static func presentMemeEditor(meme: Meme?, fromViewController: UIViewController) {
+        var storyboard = UIStoryboard (name: "Main", bundle: nil)
+        var memeEditor = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
+        memeEditor.meme = meme
+        fromViewController.presentViewController(memeEditor, animated: true, completion: nil)
+    }
 }
 
 extension Meme {
