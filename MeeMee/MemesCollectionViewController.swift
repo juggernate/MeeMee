@@ -10,14 +10,15 @@ import UIKit
 
 let reuseIdentifier = "MemeCollectionCell"
 
-class MemesCollectionViewController: UICollectionViewController, UICollectionViewDataSource {
+class MemesCollectionViewController: UIViewController, UICollectionViewDataSource {
 
     var memes: [Meme]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        self.memes = appDelegate.memes
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,22 +28,17 @@ class MemesCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        println("GETTIN DA MEMES")
-        memes = appDelegate.memes
-        println("I HAZ DA MEMES: \(memes)")
-        
-        
+        self.memes = appDelegate.memes
     }
 
-
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //#warning Incomplete method implementation -- Return the number of items in the section
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // this happens BEFORE view will appear, so memes will be nil if you don't get it from AD before this
         return memes.count
+        
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         println("Gettin cellForItemBlahBlah")
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier,
@@ -59,11 +55,9 @@ class MemesCollectionViewController: UICollectionViewController, UICollectionVie
         return cell
     }
     
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         showMemeEditor(memes[indexPath.row])
     }
-    
     
     func showMemeEditor(meme:Meme?) {
         var storyboard = UIStoryboard (name: "Main", bundle: nil)
@@ -71,6 +65,5 @@ class MemesCollectionViewController: UICollectionViewController, UICollectionVie
         resultVC.meme = meme
         self.presentViewController(resultVC, animated: true, completion: nil)
     }
-
 
 }

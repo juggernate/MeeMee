@@ -8,15 +8,21 @@
 
 import UIKit
 
-class MemesTableViewController: UITableViewController, UITableViewDataSource {
+class MemesTableViewController: UIViewController, UITableViewDataSource {
 
     // will get this from the AppDelegate every time view will appear
     var memes: [Meme]!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        self.memes = appDelegate.memes
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        memes = appDelegate.memes
+        self.memes = appDelegate.memes
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -24,36 +30,31 @@ class MemesTableViewController: UITableViewController, UITableViewDataSource {
         // There should be a better way to handle this, I'm not sure this is the best default,
         // perhaps there should be an "Add Meme" on the tab bar, that starts a new Meme
         
-        if memes.count == 0 {
-            var storyboard = UIStoryboard (name: "Main", bundle: nil)
-            var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
-            self.presentViewController(resultVC, animated: true, completion: nil)
-
-        }
+//        if memes.count == 0 {
+//            showMemeEditor(nil)
+//        }
     }
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as UITableViewCell
         let meme = memes[indexPath.row]
-        
-        cell.textLabel?.text = meme.topLabel
-        cell.imageView?.image = meme.memeImage
-        cell.detailTextLabel?.text = meme.bottomLabel
-        
+
         return cell
     }
+    
 
     @IBAction func addMeme() {
         showMemeEditor(nil)
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         showMemeEditor(memes[indexPath.row])
     }
     
