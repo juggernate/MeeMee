@@ -120,7 +120,6 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
     // MARK: TextFieldDelegate
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("\(textField) asks Should Return?")
         textField.resignFirstResponder()
         return true
     }
@@ -259,6 +258,12 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
         // Do the sharing here for now with the flattened image
         if let shareImage = meme?.memeImage{
             let controller = UIActivityViewController(activityItems: [shareImage], applicationActivities: nil)
+            
+            //Use popover for iPad (otherwise this crashes on iPad)
+            //http://stackoverflow.com/questions/25644054/uiactivityviewcontroller-crashing-on-ios8-ipads
+            if let popupVC = controller.popoverPresentationController{
+                popupVC.barButtonItem = shareButton
+            }
             self.presentViewController(controller, animated: true, completion: nil)
         }
     }

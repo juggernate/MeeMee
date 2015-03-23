@@ -24,11 +24,6 @@ class MemesCollectionViewController: UIViewController, UICollectionViewDelegate,
         self.memes = appDelegate.memes
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,39 +37,25 @@ class MemesCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // this happens BEFORE view will appear, so memes will be nil if you don't get it from AD before this
-        println("IMMA SAY MEMES COUNT: \(memes.count)")
         return memes.count
     }
 
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        println("Gettin cellForItemBlahBlah")
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier,
             forIndexPath: indexPath) as MemeCollectionViewCell
         
-        println("GOT THE CELL? \(cell)")
-        
         let meme = self.memes[indexPath.row]
-        
-        println("GOT THE MEME? \(meme)")
-        
         cell.memeImageView.image = meme.memeImage
 
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        showMemeEditor(memes[indexPath.row])
-//        Meme.presentMemeEditor(memes[indexPath.row], fromViewController: self)
+        Meme.presentMemeEditor(memes[indexPath.row], fromViewController: self)
     }
     
-    func showMemeEditor(meme:Meme?) {
-        
-        var storyboard = UIStoryboard (name: "Main", bundle: nil)
-        var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
-        resultVC.meme = meme
-        self.presentViewController(resultVC, animated: true, completion: nil)
-    }
+
 
 }

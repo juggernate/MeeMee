@@ -18,6 +18,7 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         self.memes = appDelegate.memes
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -27,9 +28,8 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
-        // Show the Meme Editor if no memes exist
-        // There should be a better way to handle this, I'm not sure this is the best default,
-        // perhaps there should be an "Add Meme" on the tab bar, that starts a new Meme
+        // Show the Meme Editor if no memes exist on first load
+        // presenting other doesn't work in viewDidLoad or before appearance
         
         if firstLoad && memes.count == 0 {
             firstLoad = false
@@ -40,7 +40,6 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
     // MARK: - Table view data source
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("TABLE VIEW ZEZ Number of Rows: \(memes.count)")
         return memes.count
     }
     
@@ -49,7 +48,7 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as UITableViewCell
         let meme = memes[indexPath.row]
         
-        cell.imageView?.image = meme.image
+        cell.imageView?.image = meme.memeImage
         cell.textLabel?.text = meme.topLabel
         cell.detailTextLabel?.text = meme.bottomLabel
 
@@ -58,14 +57,7 @@ class MemesTableViewController: UIViewController, UITableViewDataSource {
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        showMemeEditor(memes[indexPath.row])
         Meme.presentMemeEditor(memes[indexPath.row], fromViewController: self)
     }
-    
-//    func showMemeEditor(meme:Meme?) {
-//        var storyboard = UIStoryboard (name: "Main", bundle: nil)
-//        var resultVC = storyboard.instantiateViewControllerWithIdentifier("MemeEditor") as MemeEditorViewController
-//        resultVC.meme = meme
-//        self.presentViewController(resultVC, animated: true, completion: nil)
-//    }
+
 }
