@@ -87,13 +87,15 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDele
 
     func keyboardWillHide(notification: NSNotification){
         if currentTextField == bottomLabel {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
+            self.view.frame.origin.y = 0
         }
     }
 
     func keyboardWillShow(notification: NSNotification){
         if currentTextField == bottomLabel {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            //if user switches keyboard while typing this gets called again so reset before offseting
+            self.view.frame.origin.y = 0
+            self.view.frame.origin.y -= getKeyboardHeight(notification) - toolBar.frame.height
         }
     }
 
